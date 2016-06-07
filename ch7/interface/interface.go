@@ -5,13 +5,24 @@ import (
 	"io"
 )
 
-
+const debug = false
 
 func main() {
 	var buf *bytes.Buffer
-	println(buf == nil)
-	var buf2 io.Writer
-	println(buf2 == nil)
+	if debug {
+		buf = new(bytes.Buffer) // enable collection of output
+	}
+	f(buf) // NOTE: subtly incorrect!
+	if debug {
+		// ...use buf...
+	}
 }
+// If out is nonnil,
+// output will be written to it.
 
-
+func f(out io.Writer) {
+	// ...do something...
+	if out != nil {
+		out.Write([]byte("done!\n"))
+	}
+}
