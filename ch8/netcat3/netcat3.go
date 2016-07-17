@@ -9,12 +9,15 @@ import (
 
 func main() {
 	conn, err := net.Dial("tcp", "localhost:8000")
+	if tc, ok; conn.(*net.TCPConn);
 	if err != nil {
 		log.Fatal(err)
 	}
 	done := make(chan struct{})
 	go func() {
-		io.Copy(os.Stdout, conn)
+		if _, err := io.Copy(os.Stdout, conn); err != nil {
+			log.Print(err)
+		}
 		log.Println("done")
 		done <- struct {} {}
 	} ()
